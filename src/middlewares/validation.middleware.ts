@@ -3,7 +3,7 @@ import { z, ZodError } from 'zod';
 
 import { StatusCodes } from 'http-status-codes';
 
-export function validateData(schema: z.ZodObject<any, any, any, any, any>) {
+export function validateData(schema: z.ZodObject<any, any, any, any, any> | z.ZodString) {
 
   return (req: Request, res: Response, next: NextFunction) => {
     try {

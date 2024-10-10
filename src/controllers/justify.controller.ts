@@ -5,7 +5,7 @@ import { JustifyRequestInputDTO } from '../dtos/requests/justify.requests';
 
 export const justifyTextController = (req: Request<{}, {}, JustifyRequestInputDTO>
   , res: Response) => {
-  const text = req.body.text;
+  const text = req.body;
 
   const justifiedText = JustifyService.justifyText(text);
 

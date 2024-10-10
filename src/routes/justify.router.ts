@@ -3,7 +3,6 @@ import { justifyTextController } from '../controllers/justify.controller';
 import { rateLimitMiddleware } from '../middlewares/rateLimit.middleware';
 import { validateData } from '../middlewares/validation.middleware';
 import { justifyRequestSchema } from '../dtos/requests/justify.requests';
-import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
 /**
@@ -19,14 +18,14 @@ const router = Router();
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
- *           schema:
- *              type: object
- *              properties:
- *                text:
- *                  type: string
- *                  description: The text to justify.
- *                  example: "Your text here."
+ *         text/plain:
+ *            schema:
+ *              type: string
+ *              example: "Your text here."
+ *              required: true
+
+ *
+ *
  *     responses:
  *       200:
  *         description: Text justified successfully.
@@ -43,7 +42,7 @@ const router = Router();
  *         description: Rate limit exceeded.
  */
 router.post('/justify', validateData(justifyRequestSchema),
-  authMiddleware,
+  // authMiddleware,
   rateLimitMiddleware, justifyTextController);
 
 export default router;

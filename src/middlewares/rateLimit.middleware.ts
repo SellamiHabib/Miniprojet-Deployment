@@ -6,7 +6,7 @@ import { JustifyRequestInputDTO } from '../dtos/requests/justify.requests';
 const MAX_WORDS_PER_DAY = 80000;
 
 export const rateLimitMiddleware = (req: Request<unknown, unknown, JustifyRequestInputDTO>, res: Response, next: NextFunction) => {
-  const text = req.body.text;
+  const text = req.body;
   const token = res.locals.token;
 
   if (!text) {

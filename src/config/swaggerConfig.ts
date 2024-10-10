@@ -15,6 +15,14 @@ const swaggerOptions = {
         description: 'Development server',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+        },
+      },
+    },
   },
   apis: ['./src/routes/*.ts'],
 };

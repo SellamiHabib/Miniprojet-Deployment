@@ -1,30 +1,25 @@
 import Redis from 'ioredis';
-import redisClient from '../config/redisConfig';
-import { UserDTO, UserSchema } from '../Schemas/user.schema';
+import { User, userSchema } from '../schemas/userSchema';
+import { BaseRepository } from './base.repository';
 
 
-export class UserRepository {
+export class UserRepository extends BaseRepository<User> {
   private redisClient: Redis;
 
   constructor() {
-    this.redisClient = redisClient;
+    super('user');
   }
 
-  async getUserByEmail(email: string): Promise<UserDTO | null> {
+  async getUserByEmail(email: string): Promise<User | null> {
     const userData = await this.redisClient.get(email);
     if (!userData) return null;
 
     try {
       const user = JSON.parse(userData);
-      return UserSchema.parse(user);  // Validate user data using Zod
+      return userSchema.parse(user);  // Validate user data using Zod
     } catch (error) {
       console.error('Failed to parse user data', error);
       return null;
     }
-  }
-
-  async saveUser(user: UserDTO): Promise<UserDTO> {
-    await this.redisClient.set(user.email, JSON.stringify(user));
-    return user;
   }
 }

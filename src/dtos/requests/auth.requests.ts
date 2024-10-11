@@ -1,4 +1,9 @@
 import { z } from 'zod';
-import { loginSchema } from '../../schemas/auth.schema';
+
+export const loginSchema = z.object({
+  email: z.string({
+    message: 'Email is required',
+  }),
+});
 
 export type TokenRequestInputDTO = z.infer<typeof loginSchema>;

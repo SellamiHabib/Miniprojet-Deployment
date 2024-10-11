@@ -1,6 +1,7 @@
 import Redis from 'ioredis';
 import redisClient from '../config/redisConfig';
-import { UserDTO, UserSchema } from '../models/user.model';
+import { UserDTO, UserSchema } from '../Schemas/user.schema';
+
 
 export class UserRepository {
   private redisClient: Redis;

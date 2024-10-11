@@ -4,7 +4,6 @@ import { User } from '../schemas/userSchema';
 import { v4 as uuidv4 } from 'uuid';
 
 class AuthService {
-
   private userRepository: UserRepository;
 
   constructor() {
@@ -12,9 +11,8 @@ class AuthService {
   }
 
   public async generateToken(email: string): Promise<string> {
-
     // Check if user exists in Redis, otherwise create it
-    let user = await this.userRepository.getUserByEmail(email);
+    let user = await this.userRepository.get(email);
     if (!user) {
       user = await this.createUser(email);
     } else {
@@ -24,7 +22,7 @@ class AuthService {
     }
 
     return user.jwtToken;
-  };
+  }
 
   private async createUser(email: string): Promise<User> {
     const token = signToken(email);
@@ -34,7 +32,7 @@ class AuthService {
   }
 
   public async getUserDetails(email: string): Promise<User> {
-    let user = await this.userRepository.getUserByEmail(email);
+    const user = await this.userRepository.get(email);
     if (!user) {
       throw new Error('User not found');
     }
@@ -42,14 +40,13 @@ class AuthService {
   }
 
   public async updateWordCount(email: string, wordCount: number): Promise<User> {
-    let user = await this.userRepository.getUserByEmail(email);
+    const user = await this.userRepository.get(email);
     if (!user) {
       throw new Error('User not found');
     }
     user.wordCount += wordCount;
     return this.userRepository.set(email, user);
   }
-
 }
 
 export default new AuthService();

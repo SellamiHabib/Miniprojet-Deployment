@@ -1,14 +1,22 @@
 import Redis from 'ioredis';
 import redisClient from '../config/redisConfig';
 import { BaseModel } from '../schemas/base.schema';
+import { ZodObject } from 'zod';
 
 export class BaseRepository<T extends BaseModel> {
   protected redisClient: Redis;
   protected keyPrefix: string;
+  // disabling eslint for the schema parameter because it's a generic type
 
-  constructor(keyPrefix: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected schema: ZodObject<any>;
+
+  // disabling eslint for the schema parameter because it's a generic type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(keyPrefix: string, schema: ZodObject<any>) {
     this.redisClient = redisClient;
     this.keyPrefix = keyPrefix;
+    this.schema = schema;
   }
 
   private buildKey(key: string): string {
@@ -21,7 +29,8 @@ export class BaseRepository<T extends BaseModel> {
     if (!data) return null;
 
     try {
-      return JSON.parse(data) as T;
+      const parsedData = JSON.parse(data);
+      return this.schema.parse(parsedData) as T;
     } catch (error) {
       console.error('Failed to parse data from Redis', error);
       return null;
@@ -31,7 +40,8 @@ export class BaseRepository<T extends BaseModel> {
   async set(key: string, value: T): Promise<T> {
     const fullKey = this.buildKey(key);
     try {
-      await this.redisClient.set(fullKey, JSON.stringify(value));
+      const data = JSON.stringify(value);
+      await this.redisClient.set(fullKey, data);
       return value;
     } catch (error) {
       console.error('Failed to set data in Redis', error);

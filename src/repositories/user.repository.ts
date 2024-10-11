@@ -1,11 +1,7 @@
-import Redis from 'ioredis';
 import { User, userSchema } from '../schemas/userSchema';
 import { BaseRepository } from './base.repository';
 
-
 export class UserRepository extends BaseRepository<User> {
-  private redisClient: Redis;
-
   constructor() {
     super('user');
   }
@@ -16,7 +12,7 @@ export class UserRepository extends BaseRepository<User> {
 
     try {
       const user = JSON.parse(userData);
-      return userSchema.parse(user);  // Validate user data using Zod
+      return userSchema.parse(user); // Validate user data using Zod
     } catch (error) {
       console.error('Failed to parse user data', error);
       return null;

@@ -6,6 +6,7 @@ import { swaggerDocs } from './src/config/swaggerConfig';
 import swaggerUi from 'swagger-ui-express';
 import justifyRouter from './src/routes/justify.router';
 import authRouter from './src/routes/auth.router';
+import { errorHandler } from './src/utils/errorHandler';
 
 const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
@@ -14,8 +15,8 @@ app.use(bodyParser.text());
 app.use(bodyParser.json()); // For token request parsing
 
 
-app.use("/api",justifyRouter);
-app.use("/api",authRouter);
+app.use('/api', justifyRouter);
+app.use('/api', authRouter);
 app.get('/healthcheck', async (_req, res) => {
   res.status(StatusCodes.OK).send({
     status: 'ok',

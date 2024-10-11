@@ -6,6 +6,12 @@
   "repository": "https://github.com/SellamiHabib/FULLSTACK-Habib-SEllami",
   "author": "Habib Sellami",
   "license": "MIT",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
   "scripts": {
     "start": "node dist/index.js",
     "dev": "yarn with-env ts-node-dev --poll index.ts",
@@ -15,7 +21,8 @@
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
     "with-env": "dotenv -e .env --",
-    "env:validate": "ts-node ./src/env.ts"
+    "env:validate": "ts-node ./src/env.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@types/swagger-jsdoc": "^6.0.4",
@@ -41,6 +48,8 @@
     "dotenv-cli": "^7.4.2",
     "eslint": "^9.12.0",
     "globals": "^15.11.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "3.3.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.3",

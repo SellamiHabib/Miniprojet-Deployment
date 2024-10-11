@@ -3,6 +3,7 @@ import { justifyTextController } from '../controllers/justify.controller';
 import { rateLimitMiddleware } from '../middlewares/rateLimit.middleware';
 import { validateData } from '../middlewares/validation.middleware';
 import { justifyRequestSchema } from '../dtos/requests/justify.requests';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
 /**
@@ -23,7 +24,6 @@ const router = Router();
  *              type: string
  *              example: "Your text here."
  *              required: true
-
  *
  *
  *     responses:
@@ -42,7 +42,11 @@ const router = Router();
  *         description: Rate limit exceeded.
  */
 router.post('/justify', validateData(justifyRequestSchema),
-  // authMiddleware,
-  rateLimitMiddleware, justifyTextController);
+
+  authMiddleware,
+
+  rateLimitMiddleware,
+
+  justifyTextController);
 
 export default router;

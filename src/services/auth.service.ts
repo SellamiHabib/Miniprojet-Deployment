@@ -1,54 +1,48 @@
-import { v4 as uuidv4 } from 'uuid';
-import AuthRepository from '../repositories/AuthRepository';
-
-interface Token {
-  token: string;
-  email: string;
-  wordCount: number;
-  createdAt: Date;
-}
+import { signToken } from '../utils/jwtUtils';
+import { UserRepository } from '../repositories/user.repository';
+import { UserDTO } from '../models/user.model';
 
 class AuthService {
-  private tokens: Token[];
+
+  private userRepo: UserRepository;
 
   constructor() {
-    this.tokens = [];
-  }
-  public async login(email: string): Promise<string> {
-    const token = uuidv4();
-    await AuthRepository.saveToken(token, email);
-    return token;
+    this.userRepo = new UserRepository();
   }
 
-  public generateToken(email: string): string {
-    const token = uuidv4();
-    this.tokens.push({ token, email, wordCount: 0, createdAt: new Date() });
-    return token;
-  }
+  public async generateToken(email: string): Promise<string> {
 
-  public getTokenDetails(token: string): Token | undefined {
-    return this.tokens.find((t) => t.token === token);
-  }
-
-  public updateTokenWordCount(token: string, count: number): void {
-    const tokenDetails = this.getTokenDetails(token);
-    if (tokenDetails) {
-      tokenDetails.wordCount += count;
+    // Check if user exists in Redis, otherwise create it
+    let user = await this.userRepo.getUserByEmail(email);
+    if (!user) {
+      const token = signToken(email);
+      user = await this.userRepo.saveUser({ email, jwtToken: token, wordCount: 0 });
+    } else {
+      // Update token if it has expired
+      user.jwtToken = signToken(email);
+      await this.userRepo.saveUser(user);
     }
+
+    return user.jwtToken;
+  };
+
+  public async getUserDetails(email: string): Promise<UserDTO> {
+    let user = await this.userRepo.getUserByEmail(email);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
   }
 
-  public resetTokenWordCount(): void {
-    // Reset logic (e.g., once per day)
-    const now = new Date();
-    this.tokens.forEach(token => {
-      const timeDifference = now.getTime() - token.createdAt.getTime();
-      const oneDay = 24 * 60 * 60 * 1000;
-      if (timeDifference > oneDay) {
-        token.wordCount = 0;
-        token.createdAt = now;
-      }
-    });
+  public async updateWordCount(email: string, wordCount: number): Promise<UserDTO> {
+    let user = await this.userRepo.getUserByEmail(email);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.wordCount += wordCount;
+    return this.userRepo.saveUser(user);
   }
+
 }
 
 export default new AuthService();

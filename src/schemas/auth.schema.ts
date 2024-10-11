@@ -5,8 +5,3 @@ export const loginSchema = z.object({
     message: 'Email is required',
   }),
 });
-
-export const UserSchema = z.object({
-  email: z.string(),
-  wordCount: z.number(),
-});

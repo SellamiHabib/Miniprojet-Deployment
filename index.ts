@@ -21,7 +21,7 @@ app.get('/healthcheck', async (_req, res) => {
     status: 'ok',
   });
 });
-
+app.use(errorHandler);
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });

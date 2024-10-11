@@ -2,6 +2,8 @@ import { signToken } from '../utils/jwtUtils';
 import { UserRepository } from '../repositories/user.repository';
 import { User } from '../schemas/userSchema';
 import { v4 as uuidv4 } from 'uuid';
+import { StatusCodes } from 'http-status-codes';
+import { CustomError } from '../utils/CustomError';
 
 class AuthService {
   private userRepository: UserRepository;
@@ -34,7 +36,7 @@ class AuthService {
   public async getUserDetails(email: string): Promise<User> {
     const user = await this.userRepository.get(email);
     if (!user) {
-      throw new Error('User not found');
+      throw new CustomError('User not found', StatusCodes.NOT_FOUND);
     }
     return user;
   }
@@ -42,7 +44,7 @@ class AuthService {
   public async updateWordCount(email: string, wordCount: number): Promise<User> {
     const user = await this.userRepository.get(email);
     if (!user) {
-      throw new Error('User not found');
+      throw new CustomError('User not found', StatusCodes.NOT_FOUND);
     }
     user.wordCount += wordCount;
     return this.userRepository.set(email, user);

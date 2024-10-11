@@ -2,6 +2,8 @@ import Redis from 'ioredis';
 import redisClient from '../config/redisConfig';
 import { BaseModel } from '../schemas/base.schema';
 import { ZodObject } from 'zod';
+import { CustomError } from '../utils/CustomError';
+import { StatusCodes } from 'http-status-codes';
 
 export class BaseRepository<T extends BaseModel> {
   protected redisClient: Redis;
@@ -26,14 +28,15 @@ export class BaseRepository<T extends BaseModel> {
   async get(key: string): Promise<T | null> {
     const fullKey = this.buildKey(key);
     const data = await this.redisClient.get(fullKey);
-    if (!data) return null;
+    if (!data) {
+      throw new CustomError('Data not found', StatusCodes.NOT_FOUND);
+    }
 
     try {
       const parsedData = JSON.parse(data);
       return this.schema.parse(parsedData) as T;
-    } catch (error) {
-      console.error('Failed to parse data from Redis', error);
-      return null;
+    } catch {
+      throw new CustomError('Failed to parse data', StatusCodes.UNPROCESSABLE_ENTITY);
     }
   }
 
@@ -43,9 +46,8 @@ export class BaseRepository<T extends BaseModel> {
       const data = JSON.stringify(value);
       await this.redisClient.set(fullKey, data);
       return value;
-    } catch (error) {
-      console.error('Failed to set data in Redis', error);
-      throw error;
+    } catch {
+      throw new CustomError('Failed to set data', StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -53,9 +55,8 @@ export class BaseRepository<T extends BaseModel> {
     const fullKey = this.buildKey(key);
     try {
       await this.redisClient.del(fullKey);
-    } catch (error) {
-      console.error('Failed to delete data from Redis', error);
-      throw error;
+    } catch {
+      throw new CustomError('Failed to delete data from Redis', StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
 }

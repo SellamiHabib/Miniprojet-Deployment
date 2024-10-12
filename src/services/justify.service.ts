@@ -1,8 +1,8 @@
 class JustifyService {
   private maxLineLength: number;
 
-  constructor() {
-    this.maxLineLength = 80;
+  constructor(maxLineLength?: number) {
+    this.maxLineLength = maxLineLength || 80;
   }
 
   public justifyText(text: string): string {

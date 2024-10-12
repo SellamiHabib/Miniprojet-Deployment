@@ -222,10 +222,6 @@ curl -X POST http://localhost:8080/api/justify \
 ## **Deployment**
 
 The API is deployed on **Render**.
-Since I'm using a free tier, the server might go down for inactivity, in that case you can deploy a new instance by clicking the button below:
-
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
-
 
 ---
 

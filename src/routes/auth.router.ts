@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authController } from '../controllers/auth.controller';
+import { AuthController } from '../controllers/authController';
 import { validateData } from '../middlewares/validation.middleware';
 import { loginSchema } from '../dtos/requests/auth.requests';
 
@@ -36,6 +36,6 @@ const router = Router();
  *       400:
  *         description: Email is required.
  */
-router.post('/token', validateData(loginSchema), authController);
+router.post('/token', validateData(loginSchema), AuthController);
 
 export default router;

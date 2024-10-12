@@ -8,8 +8,8 @@ import { CustomError } from '../utils/CustomError';
 class AuthService {
   private userRepository: UserRepository;
 
-  constructor() {
-    this.userRepository = new UserRepository();
+  constructor(userRepository: UserRepository = new UserRepository()) {
+    this.userRepository = userRepository;
   }
 
   private async createUser(email: string): Promise<User> {
@@ -46,9 +46,9 @@ class AuthService {
     if (!user) {
       throw new CustomError('User not found', StatusCodes.NOT_FOUND);
     }
-    user.wordCount += wordCount;
+    user.wordCount = user.wordCount + wordCount;
     return this.userRepository.set(email, user);
   }
 }
 
-export default new AuthService();
+export default AuthService;

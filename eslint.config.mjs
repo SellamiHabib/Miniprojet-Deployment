@@ -17,5 +17,4 @@ export default [
       globals: globals.browser,
     },
   },
-
 ];

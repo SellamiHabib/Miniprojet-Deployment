@@ -1,4 +1,4 @@
-import JustifyService from '../src/services/justify.service';
+import JustifyService from '../../src/services/justify.service';
 
 describe('JustifyService', () => {
   let justifyService: JustifyService;

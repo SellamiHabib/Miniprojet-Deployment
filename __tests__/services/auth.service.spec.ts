@@ -1,13 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
-import { UserRepository } from '../src/repositories/user.repository';
-import AuthService from '../src/services/auth.service';
-import { CustomError } from '../src/utils/CustomError';
-import * as jwtUtils from '../src/utils/jwtUtils';
+import { UserRepository } from '../../src/repositories/user.repository';
+import AuthService from '../../src/services/auth.service';
+import { CustomError } from '../../src/utils/CustomError';
+import * as jwtUtils from '../../src/utils/jwtUtils';
 import { v4 as uuidv4 } from 'uuid';
 import Redis from 'ioredis-mock';
 // Mocking dependencies
-jest.mock('../src/repositories/user.repository');
-jest.mock('../src/utils/jwtUtils', () => {
+jest.mock('../../src/repositories/user.repository');
+jest.mock('../../src/utils/jwtUtils', () => {
   return {
     signToken: jest.fn(),
   };

@@ -3,19 +3,16 @@ import { BaseModel } from '../schemas/base.schema';
 import { ZodObject } from 'zod';
 import { CustomError } from '../utils/CustomError';
 import { StatusCodes } from 'http-status-codes';
+import redisClient from '../config/redisConfig';
 
 export class BaseRepository<T extends BaseModel> {
   protected redisClient: Redis;
   protected keyPrefix: string;
-  // disabling eslint for the schema parameter because it's a generic type
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   protected schema: ZodObject<any>;
 
-  // disabling eslint for the schema parameter because it's a generic type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(keyPrefix: string, schema: ZodObject<any>, redisClient?: Redis) {
-    this.redisClient = redisClient || new Redis();
+  constructor(keyPrefix: string, schema: ZodObject<any>, customRedisClient?: Redis) {
+    this.redisClient = customRedisClient || redisClient;
     this.keyPrefix = keyPrefix;
     this.schema = schema;
   }

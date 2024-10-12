@@ -15,6 +15,7 @@ export const rateLimitMiddleware = async (
   const text = req.body;
   const user = res.locals.user;
 
+  // I used throw error instead of next(error) because express handles synchronous errors
   if (!text) {
     throw new CustomError('Text is required', StatusCodes.BAD_REQUEST);
   }
@@ -23,10 +24,10 @@ export const rateLimitMiddleware = async (
   const wordCount = text.split(/\s+/).length;
 
   if (userDetails && userDetails.wordCount + wordCount > MAX_WORDS_PER_DAY) {
-    throw new CustomError('You have exceeded the daily word limit, payment required', StatusCodes.PAYMENT_REQUIRED);
+    // I used next(error) because express doesn't handles asynchronous errors by default
+    next(new CustomError('You have exceeded the daily word limit, payment required', StatusCodes.PAYMENT_REQUIRED));
+  } else {
+    await authService.updateWordCount(userDetails.email, wordCount);
+    next();
   }
-
-  authService.updateWordCount(userDetails.email, wordCount);
-  next();
-  return;
 };

@@ -25,7 +25,7 @@ export class BaseRepository<T extends BaseModel> {
     const fullKey = this.buildKey(key);
     const data = await this.redisClient.get(fullKey);
     if (!data) {
-      throw new CustomError('Data not found', StatusCodes.NOT_FOUND);
+      return null;
     }
 
     try {

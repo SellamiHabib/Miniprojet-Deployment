@@ -7,25 +7,19 @@ services:
     runtime: node
     envVars:
       - key: PORT
-        value: 3000
         sync: false
 
       - key: APP_URL
-        value: https://fullstack-habib-sellami.onrender.com
         sync: true
 
       - key: REDIS_HOST
-        value: redis-stack
         sync: false
 
       - key: REDIS_PORT
-        sync: false
         value: 6379
 
       - key: REDIS_PASSWORD
-        value: 123456
         sync: false
 
       - key: JWT_SECRET
-        sync: false
         value: 123456

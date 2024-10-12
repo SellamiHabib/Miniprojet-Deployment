@@ -6,42 +6,47 @@ class JustifyService {
   }
 
   public justifyText(text: string): string {
-    const words = text.split(/\s+/);
-    let lines: string[] = [];
+    const words = text.split(/\s+/); // Split words by whitespace
+    const lines: string[] = [];
     let currentLine: string[] = [];
 
-    words.forEach((word) => {
-      const lineLength = currentLine.join(' ').length;
+    let currentLength = 0;
 
-      if (lineLength + word.length + 1 <= this.maxLineLength) {
-        currentLine.push(word);
-      } else {
+    for (const word of words) {
+      if (currentLength + word.length + currentLine.length > this.maxLineLength) {
         lines.push(this.justifyLine(currentLine, this.maxLineLength));
-        currentLine = [word];
+        currentLine = [];
+        currentLength = 0;
       }
-    });
+      currentLine.push(word);
+      currentLength += word.length;
+    }
 
-    if (currentLine.length) {
-      lines.push(currentLine.join(' ')); // Last line, no need to justify
+    // Handle the last line (left-aligned)
+    if (currentLine.length > 0) {
+      lines.push(currentLine.join(' '));
     }
 
     return lines.join('\n');
   }
 
-  private justifyLine(words: string[], length: number): string {
-    if (words.length === 1) return words[0]; // If only one word, no justification
+  private justifyLine(words: string[], lineWidth: number): string {
+    if (words.length === 1) return words[0]; // If there's only one word, return it
 
-    const totalSpaces = length - words.join('').length;
-    let spacesBetweenWords = Math.floor(totalSpaces / (words.length - 1));
-    let extraSpaces = totalSpaces % (words.length - 1);
+    const totalSpaces = lineWidth - words.reduce((acc, word) => acc + word.length, 0);
+    const spacesBetweenWords = words.length - 1;
+    const minSpaces = Math.floor(totalSpaces / spacesBetweenWords);
+    const extraSpaces = totalSpaces % spacesBetweenWords;
 
-    return words.reduce((acc, word, idx) => {
-      if (idx === words.length - 1) return acc + word; // Last word, no space after
-      let spaces = spacesBetweenWords + (extraSpaces > 0 ? 1 : 0);
-      extraSpaces--;
-      return acc + word + ' '.repeat(spaces);
-    }, '');
+    let justifiedLine = '';
+
+    for (let i = 0; i < words.length - 1; i++) {
+      justifiedLine += words[i] + ' '.repeat(minSpaces + (i < extraSpaces ? 1 : 0));
+    }
+
+    justifiedLine += words[words.length - 1]; // Add the last word
+    return justifiedLine;
   }
 }
 
-export default new JustifyService();
+export default JustifyService;

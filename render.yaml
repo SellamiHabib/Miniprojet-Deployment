@@ -10,7 +10,7 @@ services:
         sync: false
 
       - key: APP_URL
-        sync: true
+        sync: false
 
       - key: REDIS_HOST
         sync: false

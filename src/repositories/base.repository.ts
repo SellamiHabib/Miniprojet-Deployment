@@ -1,5 +1,4 @@
 import Redis from 'ioredis';
-import redisClient from '../config/redisConfig';
 import { BaseModel } from '../schemas/base.schema';
 import { ZodObject } from 'zod';
 import { CustomError } from '../utils/CustomError';
@@ -15,8 +14,8 @@ export class BaseRepository<T extends BaseModel> {
 
   // disabling eslint for the schema parameter because it's a generic type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(keyPrefix: string, schema: ZodObject<any>) {
-    this.redisClient = redisClient;
+  constructor(keyPrefix: string, schema: ZodObject<any>, redisClient?: Redis) {
+    this.redisClient = redisClient || new Redis();
     this.keyPrefix = keyPrefix;
     this.schema = schema;
   }

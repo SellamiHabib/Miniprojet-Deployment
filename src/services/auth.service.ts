@@ -12,6 +12,13 @@ class AuthService {
     this.userRepository = new UserRepository();
   }
 
+  private async createUser(email: string): Promise<User> {
+    const token = signToken(email);
+    const id = uuidv4();
+    const newUser: User = { id, email, jwtToken: token, wordCount: 0, createdAt: new Date(), updatedAt: new Date() };
+    return this.userRepository.set(email, newUser);
+  }
+
   public async generateToken(email: string): Promise<string> {
     // Check if user exists in Redis, otherwise create it
     let user = await this.userRepository.get(email);
@@ -24,13 +31,6 @@ class AuthService {
     }
 
     return user.jwtToken;
-  }
-
-  private async createUser(email: string): Promise<User> {
-    const token = signToken(email);
-    const id = uuidv4();
-    const newUser: User = { id, email, jwtToken: token, wordCount: 0, createdAt: new Date(), updatedAt: new Date() };
-    return this.userRepository.set(email, newUser);
   }
 
   public async getUserDetails(email: string): Promise<User> {

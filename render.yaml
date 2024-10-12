@@ -2,17 +2,30 @@ services:
   - type: web
     name: FULLSTACK-Habib-Sellami
     plan: free
+    build_command: yarn --frozen-lockfile install; yarn build
+    start_command: yarn start
     runtime: node
     envVars:
       - key: PORT
+        value: 3000
         sync: false
+
       - key: APP_URL
+        value: https://fullstack-habib-sellami.onrender.com
         sync: true
+
       - key: REDIS_HOST
-        sync: true
+        value: redis-stack
+        sync: false
+
       - key: REDIS_PORT
-        sync: true
+        sync: false
+        value: 6379
+
       - key: REDIS_PASSWORD
-        sync: true
+        value: 123456
+        sync: false
+
       - key: JWT_SECRET
-        sync: true
+        sync: false
+        value: 123456

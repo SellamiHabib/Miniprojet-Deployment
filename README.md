@@ -7,6 +7,12 @@ contains exactly **80 characters**(80 by default). It supports **token-based aut
 The API also uses **Swagger** for API documentation and is **deployed on Render** with a Redis backend running in *
 *Docker**.
 
+## **Live Demo**
+
+The API is live at: **[fullstack-habib-sellami.onrender.com](https://fullstack-habib-sellami.onrender.com/api-docs)**
+
+
+
 ---
 
 ## **Table of Contents**
@@ -29,7 +35,7 @@ The API also uses **Swagger** for API documentation and is **deployed on Render*
 - **Redis for Rate Limiting**: Limits each token to **80,000 words per day**.
 - **Token-based Authentication**: Users must generate tokens via `/api/token`.
 - **Dockerized Redis**: Redis is used for rate limiting, managed with Docker Compose.
-- **Swagger Documentation**: API endpoints are documented using Swagger.
+- **Swagger Documentation**: API endpoints are documented using Swagger that can be accessed at `/api-docs`.
 - **TypeScript Support**: Written in TypeScript for type safety and better code quality.
 - **Linting & Formatting**: Uses ESLint and Prettier for code consistency.
 - **Error Handling**: Custom error handling for better user experience.

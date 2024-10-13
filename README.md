@@ -24,6 +24,7 @@ The API is live at: **[fullstack-habib-sellami.onrender.com](https://fullstack-h
 - [Docker Setup](#docker-setup)
 - [Environment Variables](#environment-variables)
 - [Usage](#usage)
+- [Scripts](#scripts)
 - [Testing](#testing)
 - [Deployment](#deployment)
 
@@ -198,6 +199,48 @@ yarn start
 ```
 
 ---
+
+## **Scripts**
+
+Here are the scripts available in the **package.json**:
+
+- **`start`**: Starts the server using the built JavaScript files.
+    ```bash
+    yarn start
+    ```
+
+- **`dev`**: Starts the server in development mode using **ts-node**.
+  ```bash
+    yarn dev
+  ```
+- **`build`**: Compiles the TypeScript files to JavaScript.
+  ```bash
+    yarn build
+    ```
+- **`lint`**: Lints the TypeScript files using **ESLint**.
+    ```bash
+    yarn lint
+    ```
+- **`test`**: Runs the unit tests using **Jest**.
+    ```bash
+    yarn test
+  ```
+- **`format`**: Formats the TypeScript files using **Prettier**.
+    ```bash
+    yarn format
+    ```
+- **`lint:fix`**: Fixes the linting errors using **ESLint**.
+    ```bash
+    yarn lint:fix
+    ```
+- **`type-check`**: Checks the TypeScript types using **tsc**.
+    ```bash
+    yarn type-check
+    ```
+- **`with-env`**: Runs a command with environment variables loaded from the `.env` file.
+    ```bash
+    yarn with-env <env>
+    ```
 
 ## **Testing**
 

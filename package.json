@@ -23,7 +23,8 @@
     "with-env": "dotenv -e .env --",
     "env:validate": "ts-node ./src/env.ts",
     "prepare": "husky",
-    "test": "jest"
+    "test": "jest",
+    "test:cov": "jest --coverage"
   },
   "dependencies": {
     "@types/swagger-jsdoc": "^6.0.4",

@@ -225,6 +225,10 @@ Here are the scripts available in the **package.json**:
     ```bash
     yarn test
   ```
+- **`test:cov`**: Runs the unit tests and generates a coverage report.
+  ```bash
+  yarn test:cov
+  ```
 - **`format`**: Formats the TypeScript files using **Prettier**.
     ```bash
     yarn format

@@ -8,13 +8,13 @@ import justifyRouter from './routes/justify.router';
 import authRouter from './routes/auth.router';
 import { errorHandler } from './middlewares/errorHandler.middleware';
 import helmet from 'helmet';
-
+import cors from 'cors';
 const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(bodyParser.text());
 app.use(bodyParser.json());
-
+app.use(cors());
 app.use(
   helmet.hidePoweredBy(),
   helmet.noSniff(),

@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { justifyTextController } from '../controllers/justify.controller';
 import { rateLimitMiddleware } from '../middlewares/rateLimit.middleware';
-import { validateData } from '../middlewares/validation.middleware';
-import { justifyRequestSchema } from '../dtos/requests/justify.requests';
+import { validateData, validateHeaders } from '../middlewares/validation.middleware';
+import { justifyRequestBodySchema, justifyTextRequestHeadersSchema } from '../dtos/requests/justify.requests';
 import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
@@ -41,12 +41,16 @@ const router = Router();
  *       402:
  *         description: Rate limit exceeded.
  */
-router.post('/justify', validateData(justifyRequestSchema),
+router.post(
+  '/justify',
+  validateData(justifyRequestBodySchema),
+  validateHeaders(justifyTextRequestHeadersSchema),
 
   authMiddleware,
 
   rateLimitMiddleware,
 
-  justifyTextController);
+  justifyTextController,
+);
 
 export default router;

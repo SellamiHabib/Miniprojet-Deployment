@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import AuthService from '../services/auth.service';
 import { StatusCodes } from 'http-status-codes';
-import { JustifyRequestInputDTO } from '../dtos/requests/justify.requests';
+import { JustifyRequestBodyDTO } from '../dtos/requests/justify.requests';
 import { CustomError } from '../utils/CustomError';
 
 const MAX_WORDS_PER_DAY = 80000;
 
 const authService = new AuthService();
 export const rateLimitMiddleware = async (
-  req: Request<unknown, unknown, JustifyRequestInputDTO>,
+  req: Request<unknown, unknown, JustifyRequestBodyDTO>,
   res: Response,
   next: NextFunction,
 ) => {

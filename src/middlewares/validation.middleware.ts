@@ -21,3 +21,22 @@ export function validateData(schema: z.ZodObject<any, any, any, any, any> | z.Zo
     }
   };
 }
+
+export function validateHeaders(schema: z.ZodObject<any, any, any, any, any> | z.ZodString) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    try {
+      schema.parse(req.headers);
+      next();
+    } catch (error) {
+      if (error instanceof ZodError) {
+        console.log(req.headers);
+        const errorMessages = error.errors.map((issue: ZodIssue) => ({
+          message: issue.message,
+        }));
+        res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid data', details: errorMessages });
+      } else {
+        throw new CustomError('Invalid data', StatusCodes.BAD_REQUEST);
+      }
+    }
+  };
+}

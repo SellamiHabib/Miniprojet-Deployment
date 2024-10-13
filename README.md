@@ -248,27 +248,17 @@ Here are the scripts available in the **package.json**:
 
 ## **Testing**
 
-Use **Postman** or **cURL** to test the API.
-
-**Example cURL request to `/api/token`:**
+The API includes unit tests for all the endpoints. You can run the tests using the following command:
 
 ```bash
-curl -X POST http://localhost:8080/api/token \
-    -H "Content-Type: application/json" \
-    -d '{"email": "foo@bar.com "}'
-    
-```
 
-**Example cURL request to `/api/justify`:**
-
-```bash
-curl -X POST http://localhost:8080/api/justify \
-    -H "Authorization : Bearer <your-token>" \
-    -H "Content-Type: text/plain" \
-    -d "Your text here."
-    
+yarn test:cov
 
 ```
+
+**Test Coverage:**
+
+![img_1.png](img_1.png)
 
 ---
 

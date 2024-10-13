@@ -29,11 +29,12 @@ export function validateHeaders(schema: z.ZodObject<any, any, any, any, any> | z
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        console.log(req.headers);
         const errorMessages = error.errors.map((issue: ZodIssue) => ({
           message: issue.message,
         }));
-        res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid data', details: errorMessages });
+        res
+          .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
+          .json({ error: 'Invalid request headers', details: errorMessages });
       } else {
         throw new CustomError('Invalid data', StatusCodes.BAD_REQUEST);
       }

@@ -26,7 +26,7 @@ app.use(
     policy: 'same-origin',
   }),
 );
-
+app.set('trust proxy', true);
 app.get('/healthcheck', async (_req, res) => {
   res.status(StatusCodes.OK).send({
     status: 'ok',

@@ -9,11 +9,14 @@ import authRouter from './routes/auth.router';
 import { errorHandler } from './middlewares/errorHandler.middleware';
 import helmet from 'helmet';
 import cors from 'cors';
+import morgan from 'morgan';
+
 const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(bodyParser.text());
 app.use(bodyParser.json());
+app.use(morgan('tiny'));
 app.use(cors());
 app.use(
   helmet.hidePoweredBy(),

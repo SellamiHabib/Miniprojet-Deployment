@@ -10,6 +10,7 @@ export const env = createEnv({
     REDIS_HOST: z.string().min(1),
     REDIS_PORT: z.string().min(1),
     REDIS_PASSWORD: z.string().min(1),
+    HTTPS_ENABLED: z.enum(['true', 'false']),
   }),
   runtimeValues: {
     PORT: process.env.PORT,
@@ -18,6 +19,7 @@ export const env = createEnv({
     REDIS_HOST: process.env.REDIS_HOST,
     REDIS_PORT: process.env.REDIS_PORT,
     REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+    HTTPS_ENABLED: process.env.HTTPS_ENABLED,
   },
   // skip validation in test environment
   skipValidation: process.env.NODE_ENV === 'test',

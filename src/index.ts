@@ -7,12 +7,26 @@ import swaggerUi from 'swagger-ui-express';
 import justifyRouter from './routes/justify.router';
 import authRouter from './routes/auth.router';
 import { errorHandler } from './middlewares/errorHandler.middleware';
+import helmet from 'helmet';
 
 const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(bodyParser.text());
 app.use(bodyParser.json());
+
+app.use(
+  helmet.hidePoweredBy(),
+  helmet.noSniff(),
+  helmet.xssFilter(),
+  helmet.frameguard({
+    action: 'deny',
+  }),
+  helmet.referrerPolicy({
+    policy: 'same-origin',
+  }),
+);
+
 app.get('/healthcheck', async (_req, res) => {
   res.status(StatusCodes.OK).send({
     status: 'ok',

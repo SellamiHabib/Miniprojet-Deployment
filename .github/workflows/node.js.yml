@@ -39,4 +39,5 @@ jobs:
         REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
         HTTPS_ENABLED: ${{ secrets.HTTPS_ENABLED }}
         APP_URL: ${{ secrets.APP_URL }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 

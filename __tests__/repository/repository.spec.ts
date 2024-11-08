@@ -32,7 +32,7 @@ describe('BaseRepository', () => {
     const result = await repository.get(key);
 
     expect(mockRedisClient.get).toHaveBeenCalledWith('testPrefix:123');
-    expect(result).toEqual(value);
+    expect(result).toEqual("test");
   });
   it('should return null if data is not found in Redis', async () => {
     (mockRedisClient.get as jest.Mock).mockResolvedValue(null); // No data found

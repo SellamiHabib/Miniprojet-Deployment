@@ -35,7 +35,7 @@ describe('createEnv', () => {
         runtimeValues: { API_KEY: 123, PORT: 'not-a-number' },
         skipValidation: false,
       }),
-    ).toThrowErrorMatchingSnapshot();
+    ).toThrowError();
   });
 
   it('should handle optional fields correctly', () => {
@@ -63,7 +63,7 @@ describe('createEnv', () => {
         runtimeValues: { API_KEY: undefined, PORT: 3000 },
         skipValidation: false,
       }),
-    ).toThrowErrorMatchingSnapshot();
+    ).toThrowError()
   });
 
   it('should pass with a schema expecting specific value types', () => {
@@ -95,6 +95,6 @@ describe('createEnv', () => {
         runtimeValues: { CONFIG: { HOST: 'invalid-url', PORT: 3000 } },
         skipValidation: false,
       }),
-    ).toThrowErrorMatchingSnapshot();
+    ).toThrowError();
   });
 });

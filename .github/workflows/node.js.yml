@@ -31,13 +31,13 @@ jobs:
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
     - run: npm run build --if-present
-      env:
-        PORT: ${{ secrets.PORT }}
-        REDIS_HOST: ${{ secrets.REDIS_HOST }}
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        REDIS_PORT: ${{ secrets.REDIS_PORT }}
-        REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
-        HTTPS_ENABLED: ${{ secrets.HTTPS_ENABLED }}
-        APP_URL: ${{ secrets.APP_URL }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    env:
+      PORT: ${{ secrets.PORT }}
+      REDIS_HOST: ${{ secrets.REDIS_HOST }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      REDIS_PORT: ${{ secrets.REDIS_PORT }}
+      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      HTTPS_ENABLED: ${{ secrets.HTTPS_ENABLED }}
+      APP_URL: ${{ secrets.APP_URL }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 

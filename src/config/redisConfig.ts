@@ -13,7 +13,7 @@ redisClient.on('connect', () => {
 });
 
 redisClient.on('error', (error) => {
-  console.error('[database]: Redis connection error:', error);
+  // console.error('[database]: Redis connection error:', error);
 });
 
 export default redisClient;

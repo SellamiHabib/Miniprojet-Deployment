@@ -21,7 +21,7 @@ jobs:
     - run: yarn test:cov
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
-    - run: yarn build --if-present
+    - run: yarn build
     env:
       PORT: ${{ secrets.PORT }}
       REDIS_HOST: ${{ secrets.REDIS_HOST }}

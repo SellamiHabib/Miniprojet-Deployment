@@ -37,6 +37,11 @@ jobs:
   push:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4

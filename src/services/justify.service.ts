@@ -24,7 +24,7 @@ class JustifyService {
 
     // Handle the last line (left-aligned)
     if (currentLine.length > 0) {
-      lines.push(currentLine.join(' '));
+      lines.push(currentLine.join(" "));
     }
 
     return lines.join('\n');

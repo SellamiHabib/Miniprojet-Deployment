@@ -4,6 +4,7 @@ metadata:
   name: nodejs-backend
   labels:
     app: nodejs-backend
+  namespace: default
 spec:
   replicas: 3  # Number of pod replicas
   selector:

@@ -6,7 +6,7 @@ metadata:
     app: nodejs-backend
   namespace: default
 spec:
-  replicas: 3  # Number of pod replicas
+  replicas: 0  # Number of pod replicas
   selector:
     matchLabels:
       app: nodejs-backend

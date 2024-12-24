@@ -21,16 +21,16 @@ class AuthService {
 
   public async generateToken(email: string): Promise<string> {
     // Check if user exists in Redis, otherwise create it
-    let user = await this.userRepository.get(email);
-    if (!user) {
-      user = await this.createUser(email);
-    } else {
-      // Update token if it has expired
-      user.jwtToken = signToken(email);
-      await this.userRepository.set(email, user);
-    }
+    // let user = await this.userRepository.get(email);
+    // if (!user) {
+    //   user = await this.createUser(email);
+    // } else {
+    //   // Update token if it has expired
+    //   user.jwtToken = signToken(email);
+    //   await this.userRepository.set(email, user);
+    // }
 
-    return user.jwtToken;
+    return "token generated";
   }
 
   public async getUserDetails(email: string): Promise<User> {

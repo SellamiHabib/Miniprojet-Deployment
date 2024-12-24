@@ -30,7 +30,7 @@ class AuthService {
     //   await this.userRepository.set(email, user);
     // }
 
-    return "token generated";
+    return 'token generated for ' + email;
   }
 
   public async getUserDetails(email: string): Promise<User> {

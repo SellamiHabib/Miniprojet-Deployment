@@ -6,7 +6,7 @@ metadata:
     app: nodejs-backend
   namespace: default
 spec:
-  replicas: 3  # Number of pod replicas
+  replicas: 4  # Number of pod replicas
   selector:
     matchLabels:
       app: nodejs-backend
@@ -27,16 +27,6 @@ spec:
               value: "8080"
             - name: APP_URL
               value: "http://localhost:8080"
-            - name: JWT_SECRET
-              value: "redis"
-            - name: REDIS_HOST
-              value: "redis"
-            - name: REDIS_PORT
-              value: "6379"
-            - name: REDIS_PASSWORD
-              value: "redis"
-            - name: HTTPS_ENABLED
-              value: "false"
 
           resources:
             limits:

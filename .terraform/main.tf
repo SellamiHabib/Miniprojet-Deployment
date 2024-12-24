@@ -56,7 +56,7 @@ resource "kubernetes_deployment" "nodejs_backend" {
           image = "habibsellami3/tp2devops:main"
 
           port {
-            container_port = 3000
+            container_port = 8080
           }
           env {
             name  = "REDIS_HOST"
@@ -76,11 +76,11 @@ resource "kubernetes_deployment" "nodejs_backend" {
           }
           env {
             name  = "APP_URL"
-            value = "http://localhost:3000"
+            value = "http://localhost:8080"
           }
           env {
             name  = "PORT"
-            value = "3000"
+            value = "8080"
           }
           env {
             name  = "HTTPS_ENABLED"
@@ -104,7 +104,7 @@ resource "kubernetes_deployment" "nodejs_backend" {
 
       port {
         port        = 80
-        target_port = 3000
+        target_port = 8080
       }
 
       type = "NodePort"

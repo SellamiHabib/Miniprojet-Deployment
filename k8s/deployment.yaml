@@ -19,14 +19,14 @@ spec:
         - name: nodejs-backend
           image: habibsellami3/tp2devops:main
           ports:
-            - containerPort: 3000 # Port your Node.js app listens on
+            - containerPort: 8080 # Port your Node.js app listens on
           env:
             - name: NODE_ENV
               value: "production"
             - name: PORT
-              value: "3000"
+              value: "8080"
             - name: APP_URL
-              value: "http://localhost:3000"
+              value: "http://localhost:8080"
             - name: JWT_SECRET
               value: "redis"
             - name: REDIS_HOST

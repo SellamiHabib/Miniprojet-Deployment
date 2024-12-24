@@ -22,7 +22,7 @@ spec:
             - containerPort: 8080 # Port your Node.js app listens on
           env:
             - name: NODE_ENV
-              value: "production"
+              value: "development"
             - name: PORT
               value: "8080"
             - name: APP_URL

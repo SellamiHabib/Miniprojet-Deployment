@@ -2,5 +2,6 @@
 node_modules
 .idea
 dist
-/.terraform/.terraform/
+/.terraform/.terraform/*
 kubectl
+kubectl.sha256

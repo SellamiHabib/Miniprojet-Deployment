@@ -18,6 +18,7 @@ spec:
       containers:
         - name: nodejs-backend
           image: habibsellami3/tp2devops:main
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080 # Port your Node.js app listens on
           env:

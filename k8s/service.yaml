@@ -7,8 +7,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 80        # External port
-      targetPort: 3000 # Container port
+    - port: 5000        # External port
+      targetPort: 8080 # Container port
       protocol: TCP
   selector:
     app: nodejs-backend
